@@ -11,9 +11,9 @@ import os
 import sys
 from django.core.wsgi import get_wsgi_application
 
-path = '../../mysite'
+path = '/GitHub/Secure-Code-Demo/mysite/mysite'
 if path not in sys.path:
-    sys.path.append(path)
+    sys.path.insert(0, path)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
