@@ -2,6 +2,15 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+class Experiment(models.Model):
+    start_datetime = models.DateTimeField()
+    start_date = models.DateTimeField(null = True, blank = True)
+    start_time = models.DateTimeField(null = True, blank = True)
+    end_datetime = models.DateTimeField(null = True, blank = True)
+    end_date = models.DateTimeField(null = True, blank = True)
+    end_time = models.DateTimeField(null = True, blank = True)
+
+
 class Question(models.Model):
     def __str__(self):
         return self.question_text

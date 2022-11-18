@@ -10,26 +10,14 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return Question.objects.order_by('-pub_date')[:5]
-#def index(request):
-#    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#    context ={'latest_question_list': latest_question_list}
-#    return render(request, 'polls/index.html', context)
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
 
-#def detail(request, question_id):
-#    question = get_object_or_404(Question, pk=question_id)
-#    return render(request, 'polls/detail.html',{'question': question})
-
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
-
-#def results(request, question_id):
-#    question = get_object_or_404(Question, pk=question_id)
-#    return render(request, 'polls/results.html', {'question': question})
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -44,7 +32,34 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+#----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
+from django.http.response import JsonResponse
+from datetime import datetime
+from django.db.models.functions import Extract, Trunc
+from django.db.models import DateTimeField
+from polls.models import Experiment
+from django.core import serializers
+
+# /extract/?lookup_name=xxx
+def polls_extract(request):
+    payload = request.GET.get('lookup_name')
+    start = datetime(2015, 6, 15)
+    end = datetime(2015, 7, 2)
+    Experiment.objects.create(
+        start_datetime=start, start_date=start.date(),
+        end_datetime=end, end_date=end.date())
+    experiments = Experiment.objects.filter(start_datetime__year=Extract('end_datetime', payload))
+    return JsonResponse({"res": serializers.serialize("json", experiments)})
+
+# /trunc/?kind=xxx
+def polls_trunc(request):
+    payload = request.GET.get('kind')
+    start = datetime(2015, 6, 15)
+    end = datetime(2015, 7, 2)
+    Experiment.objects.create(
+        start_datetime=start, start_date=start.date(),
+        end_datetime=end, end_date=end.date())
+    experiments = Experiment.objects.filter(start_datetime__date=Trunc('start_datetime', payload))
+    return JsonResponse({"res": serializers.serialize("json", experiments)})
