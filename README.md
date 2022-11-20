@@ -12,4 +12,4 @@ The vulverability is due to improper string processing when executing SQL.This v
 ## What was the vulnerable code?
 The vulnerable code was more like an *absence* of proper checking, rather than a glaring vulnerability in a function. To remedy this, they implimented a check for common sql injection starters like '
 
-![Image of both fixes](/Old and new code/Comparison2.png)
+![Both foxes of the code]()
