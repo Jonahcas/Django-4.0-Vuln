@@ -5,4 +5,4 @@ My Demo for Secure Coding CSEC 302. It deals with an SQL-Injection vulnerability
 Django is an open-source python web framework that uses a model/template/view architechural pattern. 
 
 ## What is the vulnerability?
-The vulverability is due to improper string processing when executing SQL.This vulnerability happens in the the kind & lookup_name
+The vulverability is due to improper string processing when executing SQL.This vulnerability happens in the the ```kind``` function of ```Extract``` and the ```lookup_name``` function of ```Trunc```.
