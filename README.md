@@ -10,11 +10,13 @@ The vulverability is due to improper string processing when executing SQL.This v
 + It can be used to grab data when applied to a Django web page.
 
 ## What was the vulnerable code?
-The vulnerable code was more like an *absence* of proper checking, rather than a glaring vulnerability in a function. The vulnerability is found in the ```as_sql``` method of the ```ExtractOld``` class, which was pulled from the older, vulnerable version of the code, into the fixed code. The nfixed ```Extract``` method still exists and works as intended.
+The vulnerable code was more like an *absence* of proper checking, rather than a glaring vulnerability in a function. The vulnerability is found in the ```as_sql``` method of the ```ExtractOld``` class, which was pulled from the older, vulnerable version of the code, into the fixed code. The nfixed ```Extract``` method still exists and works as intended. (Demonstrate initial test)
 
 ExtractOld: ```django\django\db\models\functions\datetime.py```
 
-To remedy this vul, they implimented a check for common sql injection starters like '. However, this was not the best fix they found for the vulnerability. Instead, they used ***bound variables,*** which allow the addition of parameters into an SQL query without it being interpreted as actual SQL.
+To remedy this vul, they implimented a check for common sql injection starters like '. (Demonstrate first fix)
+
+However, this was not the best fix they found for the vulnerability. Instead, they used ***bound variables,*** which allow the addition of parameters into an SQL query without it being interpreted as actual SQL. (Demonstrate second fix)
 
 TL;DR - They fixed it by telling the program "this is a parameter, not actual SQL."
 
