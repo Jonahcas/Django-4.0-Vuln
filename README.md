@@ -1,4 +1,4 @@
-# Secure-Code-Demo
+# Django-4.0-Demo
 My Demo for Secure Coding CSEC 302. It deals with an SQL-Injection vulnerability in certain versions of Python Django (Using 4.0).
 
 ## What is Django?
